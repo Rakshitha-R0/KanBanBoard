@@ -1,0 +1,51 @@
+.drag-image {
+  padding: 10px;
+  background-color: #f9f9f9;
+  opacity: 1;
+  transform: rotate(-5deg); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: -9999px;
+  width: 14%; 
+  height: auto;
+}
+
+.drag-image-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drag-image-header h3 {
+  font-weight: normal;
+  margin: 0;
+}
+
+.drag-image-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drag-image-details p,
+.drag-image-details span {
+  margin: 0;
+}
+
+.drag-image-details p {
+  margin: 5px 0;
+}
+
+.drag-image-details span {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.9em;
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+.drag-image img {
+  width: 40px; 
+  height: 40px; 
+  border-radius: 50%;
+}

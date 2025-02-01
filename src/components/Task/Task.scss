@@ -1,0 +1,84 @@
+.task {
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 90%;
+  height: auto;
+  border-radius: 10px; 
+  background-color: white;
+}
+
+.task.dragging {
+  opacity: 1;
+  transform: rotate(-5deg);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.task.drag-over {
+  border: 2px dashed #ccc; /* Add a dashed border to indicate drag-over */
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: medium;
+  padding-bottom: 6px;
+}
+
+.task-header h3 {
+  font-weight: 300;
+  font-size: 1.1em;
+  margin: 0;
+}
+
+.task-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9em;
+}
+
+.task-details p,
+.task-details span {
+  margin: 0;
+}
+
+.task p {
+  margin-right: 10px;
+}
+
+.TaskType {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.8em;
+  color: #666;
+  padding: 5px;
+  border-radius: 15px;
+  font-weight: 500;
+  background-color: #f5f5f5;
+  margin: 2%;
+}
+
+.user-image {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  // margin-right: 1;
+}
+
+.tomorrow {
+  color: #659eed; /* Set the color for tomorrow */
+}
+
+.yesterday {
+  color: red; /* Set the color for yesterday */
+}
+
+.task button:hover {
+  background-color: transparent;
+  color: #dc3545;
+}
+
+.task-options {
+  position: relative;
+}

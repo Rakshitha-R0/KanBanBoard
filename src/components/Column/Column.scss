@@ -1,0 +1,86 @@
+.column {
+  width: 240px;
+  min-height: 500px; 
+}
+
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.column-title {
+  margin-top: 3%;
+  margin-bottom: 4%;
+}
+
+.column-content {
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align items */
+}
+
+.column-options {
+  position: relative;
+}
+
+.column-options-menu {
+  position: absolute;
+  top: 20px;
+  right: 0;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  width: 140px;
+}
+
+.column-options-menu button {
+  display: block;
+  width: 100%;
+  padding: 5px 15px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.column .empty-task-card {
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  color: #999;
+}
+
+.column input,
+.column select {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.kanban-button {
+  display: block;
+  width: auto; /* Adjust width to auto */
+  margin-bottom: 10px;
+  padding: 5px 15px; /* Adjust padding */
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  text-align: center; /* Center align text */
+}
+
+.material-symbols-outlined {
+  color: #666;
+  padding: 5px;
+  border-radius: 15px;
+  font-weight: 500;
+}

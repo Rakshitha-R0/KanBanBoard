@@ -1,0 +1,37 @@
+.kanban-board {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 20px;
+  align-items: flex-start;
+  justify-content: flex-start; 
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 10px;
+}
+
+.kanban-button {
+  padding: 5px 10px;
+  background-color: transparent;
+  color: #c1c4cd;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9em;
+  align-self: flex-start;
+  margin-top: 10px;
+  width: 180px;
+  align-items: center;
+}
+
+.kanban-button:hover {
+  background-color: rgba(211, 211, 211, 0.2);
+}
+
+.column-title {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+
