@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Task.scss';
+// Update the import path if necessary
 import DragImage from '../DragImage/DragImage';
 import userImage from '../../images.jpg';
 
