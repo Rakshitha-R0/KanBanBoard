@@ -1,3 +1,5 @@
+Netlify link:https://67a391634abbe869ef583c7e--kanbanboard70.netlify.app/
+
 In the project directory, you can run:
 
 ### `npm start`
