@@ -8,13 +8,22 @@
 }
 
 .task.dragging {
-  opacity: 1;
-  transform: rotate(-5deg);
+  background-color: #e0e0e0; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0.5;
 }
 
-.task.drag-over {
-  border: 2px dashed #ccc; 
+.task-placeholder {
+  width: 90%;
+  height: 50px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+}
+
+.task-overlay {
+  transform: rotate(-5deg);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }
 
 .task-header {
@@ -49,7 +58,6 @@
 
 .TaskType {
   display: block;
-  margin-bottom: 10px;
   font-size: 0.8em;
   color: #666;
   padding: 5px;
@@ -57,6 +65,7 @@
   font-weight: 500;
   background-color: #f5f5f5;
   margin: 2%;
+  margin-bottom: 10px;
 }
 
 .user-image {
@@ -87,8 +96,5 @@
   top: 100%;
   right: 0;
   background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 10;
+  border: 1
 }
