@@ -29,6 +29,20 @@
   background-color: rgba(211, 211, 211, 0.2);
 }
 
+.add-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.add-column input {
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 180px;
+}
+
 .column-title {
   font-size: 1em;
   font-weight: bold;
