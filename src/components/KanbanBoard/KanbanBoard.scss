@@ -1,13 +1,22 @@
+.kanban-board-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+
 .kanban-board {
   display: flex;
   flex-direction: row;
   gap: 20px;
   padding: 20px;
   align-items: flex-start;
-  justify-content: flex-start; 
+  justify-content: flex-start;
   width: 100%;
   overflow-x: auto;
   border-radius: 10px;
+  margin-left: 0;
 }
 
 .kanban-button {
@@ -29,13 +38,15 @@
   background-color: rgba(211, 211, 211, 0.2);
 }
 
-.add-column {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+.add-column input {
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 180px;
 }
 
-.add-column input {
+.kanban-input {
   padding: 5px;
   margin-bottom: 10px;
   border-radius: 5px;
@@ -46,6 +57,28 @@
 .column-title {
   font-size: 1em;
   font-weight: bold;
+}
+
+.add-column-options {
+  position: absolute;
+  background-color: white;
+  padding: 10px;
+  z-index: 1000;
+  width: 180px;
+  border-radius: 10px;
+}
+
+.custom-column {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.custom-column input {
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 
