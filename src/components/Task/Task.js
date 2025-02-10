@@ -3,8 +3,18 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useTaskContext } from '../../context/Context';
 import './Task.scss';
-import userImage from '../../images.jpg';
 import AddTask from '../AddTask/AddTask';
+import userAbhishek from '../../images/letter-a.png';
+import userDeeksha from '../../images/letter-d.png';
+import userSneha from '../../images/letter-s.png';
+import userRahul from '../../images/letter-r.png';
+
+const userImages = {
+  Abhishek: userAbhishek,
+  Deeksha: userDeeksha,
+  Sneha: userSneha,
+  Rahul: userRahul,
+};
 
 const Task = ({ task, columnId }) => {
   const { deleteTask, modifyTask } = useTaskContext();
@@ -21,7 +31,8 @@ const Task = ({ task, columnId }) => {
     isDragging 
   } = useSortable({
     id: task.id,
-    data: { columnId, type: 'task' }
+    data: { columnId, type: 'task' },
+    handle: true
   });
 
   const style = {
@@ -36,13 +47,12 @@ const Task = ({ task, columnId }) => {
   const formatDueTime = (dueTime) => {
     const today = new Date();
     const dueDate = new Date(dueTime);
-    const timeDiff = dueDate - today;
-    const diffDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+    const diffDays = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
 
     if (diffDays === 0) return { text: 'Today' };
     if (diffDays === 1) return { text: 'Tomorrow', className: 'tomorrow' };
     if (diffDays === -1) return { text: 'Yesterday', className: 'yesterday' };
-    
+
     return {
       text: dueDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }),
       className: ''
@@ -69,32 +79,29 @@ const Task = ({ task, columnId }) => {
       style={style}
       {...attributes}
     >
-      <div className="task-content">
+      <div className="task-content" >
         <div className="task-header">
           <h3>{task.title}</h3>
-          {columnId > 2 && (
-            <div className="task-options" ref={optionsRef}>
-                <span className="material-symbols-outlined"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowOptions(!showOptions);
-                }}>more_horiz</span>
-              {showOptions && (
-                <div className="options-menu">
-                  <button className='kanban-button' onClick={() => setShowModifyTaskPopup(true)}>
-                    Modify Task
-                  </button>
-                  <button className='kanban-button' onClick={() => deleteTask(columnId, task.id)}>
-                    Delete
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
+          <div className="task-options" ref={optionsRef}>
+            <span className="material-symbols-outlined"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowOptions(!showOptions);
+              }}>more_horiz</span>
+            {showOptions && (
+              <div className="options-menu">
+                <button className='kanban-button' onClick={() => setShowModifyTaskPopup(true)}>
+                  Modify Task
+                </button>
+                <button className='kanban-button' onClick={() => deleteTask(columnId, task.id)}>
+                  Delete
+                </button>
+              </div>
+            )}
+          </div>
         </div>
-
-        <div className="task-details"  {...listeners}>
-          <img src={userImage} alt="User" className="user-image" />
+        <div className="task-details" {...listeners}>
+          <img src={userImages[task.assignedUser]} alt="User" className="user-image" />
           <p className={dueTime.className}>{dueTime.text}</p>
           <span className={`TaskType ${task.type.toLowerCase()}`}>
             {task.type}

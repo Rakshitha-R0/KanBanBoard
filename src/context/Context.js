@@ -15,7 +15,8 @@ export const TaskProvider = ({ children }) => {
     sessionStorage.setItem('columns', JSON.stringify(columns));
   }, [columns]);
 
-  const addColumn = (title, position = 'end', referenceColumnId = null) => {
+  const addColumn = (title, position, referenceColumnId = null) => {
+    console.log('addColumn', title, position, referenceColumnId);
     setColumns(prevColumns => {
       const newColumnId = prevColumns.length > 0
         ? Math.max(...prevColumns.map(col => col.id)) + 1

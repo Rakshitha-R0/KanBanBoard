@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './AddTask.scss';
 
 const AddTask = ({ columnId, addTask, modifyTask, closePopup, taskToModify }) => {
-  const [taskDetails, setTaskDetails] = useState({ title: '', dueTime: '', type: '' });
+  const [taskDetails, setTaskDetails] = useState({ title: '', dueTime: '', type: '', assignedUser: '' });
 
   useEffect(() => {
     if (taskToModify) {
@@ -11,7 +11,7 @@ const AddTask = ({ columnId, addTask, modifyTask, closePopup, taskToModify }) =>
   }, [taskToModify]);
 
   const handleSaveTask = () => {
-    if (taskDetails.title.trim() === '' || taskDetails.type === '') return;
+    if (taskDetails.title.trim() === '' || taskDetails.type === '' || taskDetails.assignedUser === '') return;
     if (taskToModify) {
       modifyTask(columnId, taskDetails);
     } else {
@@ -47,6 +47,13 @@ const AddTask = ({ columnId, addTask, modifyTask, closePopup, taskToModify }) =>
           <option value="" disabled>Type</option>
           <option value="Programming">Programming</option>
           <option value="Design">Design</option>
+        </select>
+        <select value={taskDetails.assignedUser} onChange={(e) => setTaskDetails({ ...taskDetails, assignedUser: e.target.value })}>
+          <option value="" disabled>Select User</option>
+          <option value="Abhishek">Abhishek</option>
+          <option value="Deeksha">Deeksha</option>
+          <option value="Sneha">Sneha</option>
+          <option value="Rahul">Rahul</option>
         </select>
         <div className="add-task-buttons">
           <button className="kanban-button" onClick={handleSaveTask}>{taskToModify ? 'Save' : 'Add'}</button>
