@@ -28,7 +28,7 @@ const Task = ({ task, columnId }) => {
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.2 : 1,
-    backgroundColor: isDragging ? '#d3d3d3' : 'white', 
+    backgroundColor: isDragging ? 'rgba(128, 128, 128, 0.5)' : 'white', 
     width: '90%',
     height: 'auto'
   };

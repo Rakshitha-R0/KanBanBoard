@@ -2,8 +2,12 @@
   position: relative;
   display: flex;
   align-items: center;
-  width: 100%;
   overflow: hidden;
+  width: 100vw;
+  overflow-x: auto;
+  padding: 20px;
+  box-sizing: border-box;
+
 }
 
 .kanban-board {
@@ -13,10 +17,11 @@
   padding: 20px;
   align-items: flex-start;
   justify-content: flex-start;
-  width: 100%;
   overflow-x: auto;
   border-radius: 10px;
   margin-left: 0;
+  width: max-content;
+  scroll-behavior: smooth;
 }
 
 .kanban-button {
@@ -81,4 +86,8 @@
   border-radius: 4px;
 }
 
-
+.kanban-board-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
