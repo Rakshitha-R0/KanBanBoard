@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './AddColumn.scss';
 
 const AddColumn = ({ closePopup, handleAddColumn, referenceColumnId, setFromWhichColumn }) => {

@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useDroppable } from '@dnd-kit/core';
 import Task from '../Task/Task';
 import AddTask from '../AddTask/AddTask';
-import AddColumn from '../AddColumn/AddColumn';
 import { useTaskContext } from '../../context/Context';
 import './Column.scss';
 
