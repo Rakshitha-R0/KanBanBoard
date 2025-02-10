@@ -5,7 +5,7 @@ import AddTask from '../AddTask/AddTask';
 import { useTaskContext } from '../../context/Context';
 import './Column.scss';
 
-const Column = ({ column, activeAddTaskColumn, setActiveAddTaskColumn, setShowAddColumnPopup, handleAddColumn, setFromWhichColumn }) => {
+const Column = ({ column, activeAddTaskColumn, setActiveAddTaskColumn, setShowAddColumnPopup, setFromWhichColumn }) => {
   const { addTask, deleteColumn, modifyColumn } = useTaskContext();
   const [showOptions, setShowOptions] = useState(false);
   const [showModifyColumnOptions, setShowModifyColumnOptions] = useState(false);
@@ -33,6 +33,7 @@ const Column = ({ column, activeAddTaskColumn, setActiveAddTaskColumn, setShowAd
   const handleModifyColumn = (title) => {
     modifyColumn(column.id, title);
     setShowModifyColumnOptions(false);
+    setShowOptions(false); 
     setCustomColumnTitle('');
   };
 
@@ -98,9 +99,6 @@ const Column = ({ column, activeAddTaskColumn, setActiveAddTaskColumn, setShowAd
             closePopup={() => setActiveAddTaskColumn(null)} 
           />
         )}
-        {/* {showAddColumnForColumn === column.id && (
-          <AddColumn closePopup={() => setShowAddColumnForColumn(null)} handleAddColumn={handleAddColumn} pos={'next'} />
-        )} */}
       </div>
     </div>
   );

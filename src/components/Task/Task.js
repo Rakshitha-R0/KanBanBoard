@@ -79,7 +79,7 @@ const Task = ({ task, columnId }) => {
       style={style}
       {...attributes}
     >
-      <div className="task-content" >
+      <div className="task-content">
         <div className="task-header">
           <h3>{task.title}</h3>
           <div className="task-options" ref={optionsRef}>
