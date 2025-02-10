@@ -2,9 +2,9 @@ body {
   font-family: '42dot Sans', 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  height: 100vh; 
   display: flex;
   justify-content: center;
   align-items: flex-start;
   padding-top: 3%;
+  overflow-x: hidden;
 }

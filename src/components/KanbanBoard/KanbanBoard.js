@@ -14,6 +14,7 @@ const KanbanBoardContent = () => {
   const [customColumnTitle, setCustomColumnTitle] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
   const dropdownRef = useRef(null);
+  const boardRef = useRef(null);
 
   const handleDragStart = (event) => {
     const { active } = event;
@@ -21,38 +22,32 @@ const KanbanBoardContent = () => {
     const task = columns
       .find(column => column.id === columnId)
       ?.tasks.find(task => task.id === active.id);
-    task && setActiveTask({ ...task, columnId });
+    if (task) setActiveTask({ ...task, columnId });
   };
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
     setActiveTask(null);
-
     if (!over) return;
-
     const sourceColumnId = active.data.current.columnId;
-    const targetColumnId = over.data.current?.type === 'column' 
-      ? over.id
-      : over.data.current?.columnId;
-
+    const targetColumnId =
+      over.data.current?.type === 'column' ? over.id : over.data.current?.columnId;
     if (sourceColumnId && targetColumnId && sourceColumnId !== targetColumnId) {
       moveTask(active.id, sourceColumnId, targetColumnId);
     }
   };
 
-  const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setShowAddColumnOptions(false);
-      setSelectedOption('');
-      setCustomColumnTitle('');
-    }
-  };
-
   useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowAddColumnOptions(false);
+        setSelectedOption('');
+        setCustomColumnTitle('');
+      }
+    };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-
   const handleAddColumn = (title) => {
     addColumn(title, 'end');
     setShowAddColumnOptions(false);
@@ -80,55 +75,69 @@ const KanbanBoardContent = () => {
   };
 
   return (
-    <DndContext collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+    <DndContext
+      collisionDetection={closestCenter}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+    >
       <div className="kanban-board-container">
-        <div className="kanban-board">
-          {columns.map(column => (
-            <SortableContext 
-              key={column.id} 
-              items={column.tasks.map(task => task.id)} 
-              strategy={verticalListSortingStrategy}
-            >
-              <Column
-                column={column}
-                activeAddTaskColumn={activeAddTaskColumn}
-                setActiveAddTaskColumn={setActiveAddTaskColumn}
-              />
-            </SortableContext>
-          ))}
-          
-          <div className="add-column" ref={dropdownRef}>
-            <button 
-              className="kanban-button"
-              onClick={() => setShowAddColumnOptions(true)}>
-              + Add Section
-            </button>
-            {showAddColumnOptions && (
-              <div className="add-column-options">
-                {selectedOption !== 'Custom' ? (
-                  <>
-                    <select value={selectedOption} onChange={handleOptionChange} className="kanban-input">
-                      <option value="" disabled>Select Column</option>
-                      <option value="To Do">To Do</option>
-                      <option value="In Progress">In Progress</option>
-                      <option value="Review">Review</option>
-                      <option value="Custom">+ Custom</option>
-                    </select>
-                  </>
-                ) : (
-                  <div className="custom-column">
-                    <input
-                      type="text"
-                      placeholder="Custom column title"
-                      value={customColumnTitle}
-                      onChange={(e) => setCustomColumnTitle(e.target.value)}
-                    />
-                    <button className="kanban-button" onClick={handleCustomColumnSubmit}>Confirm</button>
-                    <button className="kanban-button" onClick={handleBack}>Back</button>
-                  </div>
-                )}
-              </div>
-            )}
+        <div className="kanban-board-wrapper">
+          <div className="kanban-board" ref={boardRef}>
+            {columns.map(column => (
+              <SortableContext
+                key={column.id}
+                items={column.tasks.map(task => task.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                <Column
+                  column={column}
+                  activeAddTaskColumn={activeAddTaskColumn}
+                  setActiveAddTaskColumn={setActiveAddTaskColumn}
+                />
+              </SortableContext>
+            ))}
+
+            <div className="add-column" ref={dropdownRef}>
+              <button className="kanban-button" onClick={() => setShowAddColumnOptions(true)}>
+                + Add Section
+              </button>
+              {showAddColumnOptions && (
+                <div className="add-column-options">
+                  {selectedOption !== 'Custom' ? (
+                    <>
+                      <select
+                        value={selectedOption}
+                        onChange={handleOptionChange}
+                        className="kanban-input"
+                      >
+                        <option value="" disabled>
+                          Select Column
+                        </option>
+                        <option value="To Do">To Do</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Review">Review</option>
+                        <option value="Custom">+ Custom</option>
+                      </select>
+                    </>
+                  ) : (
+                    <div className="custom-column">
+                      <input
+                        type="text"
+                        placeholder="Custom column title"
+                        value={customColumnTitle}
+                        onChange={(e) => setCustomColumnTitle(e.target.value)}
+                      />
+                      <button className="kanban-button" onClick={handleCustomColumnSubmit}>
+                        Confirm
+                      </button>
+                      <button className="kanban-button" onClick={handleBack}>
+                        Back
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
