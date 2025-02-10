@@ -2,15 +2,15 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useDroppable } from '@dnd-kit/core';
 import Task from '../Task/Task';
 import AddTask from '../AddTask/AddTask';
+import AddColumn from '../AddColumn/AddColumn';
 import { useTaskContext } from '../../context/Context';
 import './Column.scss';
 
-const Column = ({ column, activeAddTaskColumn, setActiveAddTaskColumn }) => {
-  const { addTask, deleteColumn, addColumn } = useTaskContext();
+const Column = ({ column, activeAddTaskColumn, setActiveAddTaskColumn, setShowAddColumnPopup, handleAddColumn, setFromWhichColumn }) => {
+  const { addTask, deleteColumn, modifyColumn } = useTaskContext();
   const [showOptions, setShowOptions] = useState(false);
-  const [showAddColumnOptions, setShowAddColumnOptions] = useState(false);
+  const [showModifyColumnOptions, setShowModifyColumnOptions] = useState(false);
   const [customColumnTitle, setCustomColumnTitle] = useState('');
-  const [selectedOption, setSelectedOption] = useState('');
   const optionsRef = useRef(null);
 
   const { setNodeRef: setDroppableNodeRef } = useDroppable({
@@ -21,42 +21,29 @@ const Column = ({ column, activeAddTaskColumn, setActiveAddTaskColumn }) => {
   const handleClickOutside = (event) => {   
     if (optionsRef.current && !optionsRef.current.contains(event.target)) {
       setShowOptions(false);
-      setShowAddColumnOptions(false);
-      setSelectedOption('');
+      setShowModifyColumnOptions(false);
       setCustomColumnTitle('');
     }
   };
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleAddColumn = (title) => {
-    addColumn(title, 'next', column.id);
-    setShowAddColumnOptions(false);
-    setSelectedOption('');
+  const handleModifyColumn = (title) => {
+    modifyColumn(column.id, title);
+    setShowModifyColumnOptions(false);
     setCustomColumnTitle('');
   };
 
-  const handleCustomColumnSubmit = () => {
+  const handleModifyColumnSubmit = () => {
     if (customColumnTitle.trim() !== '') {
-      handleAddColumn(customColumnTitle);
-    }
-  };
-
-  const handleOptionChange = (e) => {
-    const value = e.target.value;
-    setSelectedOption(value);
-    if (value !== 'Custom') {
-      handleAddColumn(value);
+      handleModifyColumn(customColumnTitle);
     }
   };
 
   const handleBack = () => {
-    setSelectedOption('');
     setCustomColumnTitle('');
   };
 
@@ -68,41 +55,30 @@ const Column = ({ column, activeAddTaskColumn, setActiveAddTaskColumn }) => {
       <div className="column-header">
         <div className="column-title">{column.title}</div>
         <div className="column-options" ref={optionsRef}>
-          <span className="material-symbols-outlined" onClick={() => setShowAddColumnOptions(true)}>
+          <span className="material-symbols-outlined" onClick={() => {setFromWhichColumn(column?.id);setShowAddColumnPopup(true)}}>
             add
           </span>
           <span className="material-symbols-outlined" onClick={() => setShowOptions(!showOptions)}>
             more_horiz
           </span>
-          {showOptions && column.id > 2 && (
+          {showOptions && (
             <div className="column-options-menu">
+              <button className="kanban-button" onClick={() => setShowModifyColumnOptions(true)}>Modify</button>
               <button className="kanban-button" onClick={() => deleteColumn(column.id)}>Delete</button>
             </div>
           )}
-          {showAddColumnOptions && (
-            <div className="add-column-options">
-              {selectedOption !== 'Custom' ? (
-                <>
-                  <select value={selectedOption} onChange={handleOptionChange} className="kanban-input">
-                    <option value="" disabled>Select Column</option>
-                    <option value="To Do">To Do</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Review">Review</option>
-                    <option value="Custom">+ Custom</option>
-                  </select>
-                </>
-              ) : (
-                <div className="custom-column">
-                  <input
-                    type="text"
-                    placeholder="Custom column title"
-                    value={customColumnTitle}
-                    onChange={(e) => setCustomColumnTitle(e.target.value)}
-                  />
-                  <button className="kanban-button" onClick={handleCustomColumnSubmit}>Confirm</button>
-                  <button className="kanban-button" onClick={handleBack}>Back</button>
-                </div>
-              )}
+          {showModifyColumnOptions && (
+            <div className="modify-column-options">
+              <input
+                type="text"
+                placeholder="New column title"
+                value={customColumnTitle}
+                onChange={(e) => setCustomColumnTitle(e.target.value)}
+              />
+              <div className="button-group">
+                <button className="kanban-button" onClick={handleModifyColumnSubmit}>Confirm</button>
+                <button className="kanban-button" onClick={handleBack}>Back</button>
+              </div>
             </div>
           )}
         </div>
@@ -115,12 +91,7 @@ const Column = ({ column, activeAddTaskColumn, setActiveAddTaskColumn }) => {
             columnId={column.id}
           />
         ))}
-        {column.title === 'Review' && column.tasks.length === 0 && (
-          <div className="empty-task-card">Empty task</div>
-        )}
-        {(column.title === 'To Do' || column.title === 'In Progress') && (
-          <button className="kanban-button" style={{ alignSelf: 'center' }} onClick={() => setActiveAddTaskColumn(column.id)}>+ Add Task</button>
-        )}
+        <button className="kanban-button" style={{ alignSelf: 'center' }} onClick={() => setActiveAddTaskColumn(column.id)}>+ Add Task</button>
         {activeAddTaskColumn === column.id && (
           <AddTask 
             columnId={column.id} 
@@ -128,6 +99,9 @@ const Column = ({ column, activeAddTaskColumn, setActiveAddTaskColumn }) => {
             closePopup={() => setActiveAddTaskColumn(null)} 
           />
         )}
+        {/* {showAddColumnForColumn === column.id && (
+          <AddColumn closePopup={() => setShowAddColumnForColumn(null)} handleAddColumn={handleAddColumn} pos={'next'} />
+        )} */}
       </div>
     </div>
   );

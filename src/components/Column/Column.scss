@@ -15,9 +15,9 @@
 }
 
 .column-content {
-  border-radius: 10px;
+  border-radius: 15px;
   padding: 10px;
-  background-color: #f9f9f9;
+  background-color: #f1f1f1;
   min-height: 500px;
   display: flex;
   flex-direction: column;
@@ -37,6 +37,7 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   z-index: 1;
   width: 140px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
 
 .column-options-menu button {
@@ -69,6 +70,23 @@
 .material-symbols-outlined {
   color: #666;
   padding: 5px;
-  border-radius: 15px;
+  border-radius: 50px;
   font-weight: 500;
 }
+.material-symbols-outlined:hover {  background-color: #f1f1f1;  cursor: pointer;}.modify-column-popup {  position: fixed;  top: 20%;  left: 50%;  transform: translate(-50%, -20%);  background-color: white;  border-radius: 5px;  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  z-index: 1000;  width: 300px;  padding: 20px;}.popup-header {  display: flex;  justify-content: space-between;  align-items: center;  margin-bottom: 10px;}.popup-header h3 {  margin: 0;}.close-button {  background: none;  border: none;  font-size: 20px;  cursor: pointer;}.popup-content {  display: flex;  flex-direction: column;}.popup-content input {  display: block;  width: 100%;  margin-bottom: 10px;  padding: 5px;  border-radius: 5px;  box-sizing: border-box;}.modify-column-options {  position: absolute;  top: 20px;  right: 0;  background-color: white;  border-radius: 5px;  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  z-index: 1;  width: 140px;  padding: 10px;  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Added shadow */}.modify-column-options input {  display: block;  width: 100%;  margin-bottom: 10px;  padding: 5px;  border-radius: 5px;  box-sizing: border-box;}.modify-column-options .kanban-button {  display: block;
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 5px;
+  background: color #f1f1f1;
+  color: #666;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600; 
+}
+
+.modify-column-options .kanban-button:hover {
+  background-color: #f1f1f1;
+}
+
+
