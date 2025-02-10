@@ -79,7 +79,7 @@ const KanbanBoardContent = () => {
                 />
               </SortableContext>
             ))}
-            <button className="kanban-button" onClick={() => {setFromWhichColumn('');setShowAddColumnPopup(true)}}>
+            <button className="kanban-button" onClick={() => {setFromWhichColumn();setShowAddColumnPopup(true)}}>
               + Add Section
             </button>
           </div>
