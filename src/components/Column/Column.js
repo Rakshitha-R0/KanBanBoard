@@ -43,6 +43,14 @@ const Column = ({ column, activeAddTaskColumn, setActiveAddTaskColumn, setShowAd
     }
   };
 
+  const handleDeleteColumn = () => {
+    if (column.tasks.length > 0) {
+      alert('Please move or delete all tasks before deleting the column.');
+      return;
+    }
+    deleteColumn(column.id);
+  };
+
   const handleBack = () => {
     setCustomColumnTitle('');
   };
@@ -64,7 +72,7 @@ const Column = ({ column, activeAddTaskColumn, setActiveAddTaskColumn, setShowAd
           {showOptions && (
             <div className="column-options-menu">
               <button className="kanban-button" onClick={() => setShowModifyColumnOptions(true)}>Modify</button>
-              <button className="kanban-button" onClick={() => deleteColumn(column.id)}>Delete</button>
+              <button className="kanban-button" onClick={handleDeleteColumn}>Delete</button>
             </div>
           )}
           {showModifyColumnOptions && (
