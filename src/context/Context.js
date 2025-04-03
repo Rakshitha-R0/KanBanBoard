@@ -16,13 +16,12 @@ export const TaskProvider = ({ children }) => {
   }, [columns]);
 
   const addColumn = (title, position, referenceColumnId = null) => {
-    console.log('addColumn', title, position, referenceColumnId);
     setColumns(prevColumns => {
       const newColumnId = prevColumns.length > 0
         ? Math.max(...prevColumns.map(col => col.id)) + 1
         : 1;
       const newColumn = { id: newColumnId, title, tasks: [] };
-  
+
       if (position === 'end' || referenceColumnId === null) {
         return [...prevColumns, newColumn];
       } else if (position === 'next') {
@@ -43,6 +42,12 @@ export const TaskProvider = ({ children }) => {
 
   const deleteColumn = (columnId) => {
     setColumns(columns.filter(column => column.id !== columnId));
+  };
+
+  const modifyColumn = (columnId, newTitle) => {
+    setColumns(columns.map(column =>
+      column.id === columnId ? { ...column, title: newTitle } : column
+    ));
   };
 
   const addTask = (columnId, task) => {
@@ -70,7 +75,7 @@ export const TaskProvider = ({ children }) => {
     setColumns(prevColumns => {
       const sourceColumn = prevColumns.find(col => col.id === sourceColumnId);
       const targetColumn = prevColumns.find(col => col.id === targetColumnId);
-      
+
       if (!sourceColumn || !targetColumn) return prevColumns;
 
       const task = sourceColumn.tasks.find(t => t.id === taskId);
@@ -93,6 +98,7 @@ export const TaskProvider = ({ children }) => {
       columns, 
       addColumn, 
       deleteColumn, 
+      modifyColumn, 
       addTask, 
       modifyTask, 
       deleteTask, 

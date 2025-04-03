@@ -32,7 +32,8 @@ const Task = ({ task, columnId }) => {
   } = useSortable({
     id: task.id,
     data: { columnId, type: 'task' },
-    handle: true
+    handle: '.task-title',
+    // handle: '.task-details'
   });
 
   const style = {
@@ -79,9 +80,11 @@ const Task = ({ task, columnId }) => {
       style={style}
       {...attributes}
     >
-      <div className="task-content" >
-        <div className="task-header">
-          <h3>{task.title}</h3>
+      <div className="task-content">
+        <div className="task-header" >
+          <div className="task-title" {...listeners}>
+            <h3>{task.title}</h3>
+          </div>
           <div className="task-options" ref={optionsRef}>
             <span className="material-symbols-outlined"
               onClick={(e) => {

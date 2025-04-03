@@ -2,11 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useDroppable } from '@dnd-kit/core';
 import Task from '../Task/Task';
 import AddTask from '../AddTask/AddTask';
-import AddColumn from '../AddColumn/AddColumn';
 import { useTaskContext } from '../../context/Context';
 import './Column.scss';
 
-const Column = ({ column, activeAddTaskColumn, setActiveAddTaskColumn, setShowAddColumnPopup, handleAddColumn, setFromWhichColumn }) => {
+const Column = ({ column, activeAddTaskColumn, setActiveAddTaskColumn, setShowAddColumnPopup, setFromWhichColumn }) => {
   const { addTask, deleteColumn, modifyColumn } = useTaskContext();
   const [showOptions, setShowOptions] = useState(false);
   const [showModifyColumnOptions, setShowModifyColumnOptions] = useState(false);
@@ -34,6 +33,7 @@ const Column = ({ column, activeAddTaskColumn, setActiveAddTaskColumn, setShowAd
   const handleModifyColumn = (title) => {
     modifyColumn(column.id, title);
     setShowModifyColumnOptions(false);
+    setShowOptions(false); 
     setCustomColumnTitle('');
   };
 
@@ -41,6 +41,14 @@ const Column = ({ column, activeAddTaskColumn, setActiveAddTaskColumn, setShowAd
     if (customColumnTitle.trim() !== '') {
       handleModifyColumn(customColumnTitle);
     }
+  };
+
+  const handleDeleteColumn = () => {
+    if (column.tasks.length > 0) {
+      alert('Please move or delete all tasks before deleting the column.');
+      return;
+    }
+    deleteColumn(column.id);
   };
 
   const handleBack = () => {
@@ -64,7 +72,7 @@ const Column = ({ column, activeAddTaskColumn, setActiveAddTaskColumn, setShowAd
           {showOptions && (
             <div className="column-options-menu">
               <button className="kanban-button" onClick={() => setShowModifyColumnOptions(true)}>Modify</button>
-              <button className="kanban-button" onClick={() => deleteColumn(column.id)}>Delete</button>
+              <button className="kanban-button" onClick={handleDeleteColumn}>Delete</button>
             </div>
           )}
           {showModifyColumnOptions && (
@@ -99,9 +107,6 @@ const Column = ({ column, activeAddTaskColumn, setActiveAddTaskColumn, setShowAd
             closePopup={() => setActiveAddTaskColumn(null)} 
           />
         )}
-        {/* {showAddColumnForColumn === column.id && (
-          <AddColumn closePopup={() => setShowAddColumnForColumn(null)} handleAddColumn={handleAddColumn} pos={'next'} />
-        )} */}
       </div>
     </div>
   );
